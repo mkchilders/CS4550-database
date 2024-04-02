@@ -12,4 +12,14 @@ export default function QuizRoutes(app) {
     Database.quizzes = Database.quizzes.filter((q) => q.id !== qid);
     res.sendStatus(204);
   });
+
+  app.post("/api/courses/:cid/quizzes", (req, res) => {
+    const { cid } = req.params;
+    const newQuiz = {
+      ...req.body,
+      course: cid,
+      id: new Date().getTime().toString(),
+    };
+    res.send(newQuiz);
+  });
 }
