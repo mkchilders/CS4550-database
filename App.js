@@ -4,6 +4,7 @@ import QuizRoutes from "./Kanbas/Courses/routes.js";
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 QuizRoutes(app);
 
 app.listen(process.env.PORT || 4000);

@@ -7,7 +7,7 @@ export default function QuizRoutes(app) {
     res.send(quizzes);
   });
 
-  app.get("/api/quiz/:id", (req, res) => {
+  app.get("/api/quizzes/:id", (req, res) => {
     const { id } = req.params;
     const quiz = Database.quizzes.find((q) => {
       return q.id === id;
@@ -34,5 +34,15 @@ export default function QuizRoutes(app) {
     };
     Database.quizzes.unshift(newQuiz);
     res.send(newQuiz);
+  });
+
+  app.put("/api/quizzes/:id", (req, res) => {
+    const { id } = req.params;
+    const quizIndex = Database.quizzes.findIndex((q) => q.id === id);
+    Database.quizzes[quizIndex] = {
+      ...Database.quizzes[quizIndex],
+      ...req.body,
+    };
+    res.sendStatus(204);
   });
 }
