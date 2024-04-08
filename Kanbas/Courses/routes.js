@@ -8,9 +8,9 @@ export default function QuizRoutes(app) {
   });
 
   app.get("/api/quiz/:id", (req, res) => {
-    const { qid } = req.params;
+    const { id } = req.params;
     const quiz = Database.quizzes.find((q) => {
-      q.id === qid;
+      return q.id === id;
     });
     res.send(quiz);
   });
