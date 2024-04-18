@@ -21,7 +21,7 @@ export default [
     webcamRequired: false,
     lockQuestionsAfterAnswering: false,
     dueDate: "2024-04-01",
-    availableDate: "2024-02-01",
+    availableDate: "2024-04-19",
     untilDate: "2024-05-01",
     questions: [
       {
@@ -38,7 +38,7 @@ export default [
           {
             id: 1,
             answer: "yes",
-          }
+          },
         ],
         choices: [],
         trueFalse: false,
