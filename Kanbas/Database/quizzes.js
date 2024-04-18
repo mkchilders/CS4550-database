@@ -29,12 +29,16 @@ export default [
         type: "Fill in the Blank",
         title: "Question 1",
         points: 1,
-        question: "What is 1+1",
+        question: "1+1=___. Opposite of no: ___.",
         blanks: [
           {
             id: 0,
             answer: "2",
           },
+          {
+            id: 1,
+            answer: "yes",
+          }
         ],
         choices: [],
         trueFalse: false,
@@ -49,10 +53,11 @@ export default [
         choices: [
           {
             id: 0,
-            1: "1",
-            2: "3",
-            3: "4",
+            answer: "1",
+            isCorrect: false,
           },
+          { id: 1, answer: "3", isCorrect: true },
+          { id: 2, answer: "4", isCorrect: false },
         ],
         trueFalse: false,
       },
@@ -108,10 +113,11 @@ export default [
         choices: [
           {
             id: 0,
-            1: "1",
-            2: "3",
-            3: "4",
+            answer: "1",
+            isCorrect: false,
           },
+          { id: 1, answer: "3", isCorrect: true },
+          { id: 2, answer: "4", isCorrect: false },
         ],
         trueFalse: false,
       },
@@ -167,10 +173,11 @@ export default [
         choices: [
           {
             id: 0,
-            1: "1",
-            2: "3",
-            3: "4",
+            answer: "1",
+            isCorrect: false,
           },
+          { id: 1, answer: "3", isCorrect: true },
+          { id: 2, answer: "4", isCorrect: false },
         ],
         trueFalse: false,
       },
