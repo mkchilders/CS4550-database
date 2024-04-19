@@ -8,7 +8,8 @@ import UserRoutes from "./Kanbas/Users/routes.js";
 import "dotenv/config";
 import session from "express-session";
 
-const CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
+// const CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
+const CONNECTION_STRING = "mongodb://127.0.0.1:27017/kanbas";
 const DB_NAME = process.env.DB_NAME;
 
 mongoose.connect(CONNECTION_STRING, { dbName: DB_NAME });

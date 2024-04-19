@@ -1,27 +1,36 @@
-import Database from "../Database/index.js";
+// import Database from "../Database/index.js";
+import * as dao from "./dao.js";
 
 export default function QuizRoutes(app) {
-  app.get("/api/courses/:cid/quizzes", (req, res) => {
+  app.get("/api/courses/:cid/quizzes", async (req, res) => {
     const { cid } = req.params;
-    const quizzes = Database.quizzes.filter((q) => q.course === cid);
-    res.send(quizzes);
+    const all_quizzes = await dao.findAllQuizzes();
+    if (all_quizzes) {
+      const course_quizzes = all_quizzes.filter((q) => q.course === cid);
+      res.send(course_quizzes);
+    } else {
+      // empty case
+      res.send(all_quizzes);
+    }
   });
 
-  app.get("/api/quizzes/:id", (req, res) => {
-    const { id } = req.params;
-    const quiz = Database.quizzes.find((q) => {
-      return q.id === id;
-    });
-    res.send(quiz);
-  });
-
-  app.delete("/api/quizzes/:qid", (req, res) => {
+  app.get("/api/quizzes/:qid", async (req, res) => {
     const { qid } = req.params;
-    Database.quizzes = Database.quizzes.filter((q) => q.id !== qid);
-    res.sendStatus(204);
+    try {
+      const quiz = await dao.findQuizById(qid);
+      res.send(quiz);
+    } catch (error) {
+      console.log(error);
+    }
   });
 
-  app.post("/api/courses/:cid/quizzes", (req, res) => {
+  app.delete("/api/quizzes/:qid", async (req, res) => {
+    const { qid } = req.params;
+    const status = await dao.deleteQuiz(qid);
+    res.sendStatus(200);
+  });
+
+  app.post("/api/courses/:cid/quizzes", async (req, res) => {
     const { cid } = req.params;
     const newQuiz = {
       ...req.body,
@@ -32,17 +41,22 @@ export default function QuizRoutes(app) {
       points: 0,
       title: "new Quiz",
     };
-    Database.quizzes.unshift(newQuiz);
-    res.send(newQuiz);
+    const quiz_added = await dao.createQuiz(newQuiz);
+    res.send(quiz_added);
   });
 
-  app.put("/api/quizzes/:id", (req, res) => {
-    const { id } = req.params;
-    const quizIndex = Database.quizzes.findIndex((q) => q.id === id);
-    Database.quizzes[quizIndex] = {
-      ...Database.quizzes[quizIndex],
-      ...req.body,
-    };
-    res.sendStatus(204);
+  app.put("/api/quizzes/:qid", async (req, res) => {
+    const { qid } = req.params;
+    // const quizIndex = Database.quizzes.findIndex((q) => q.id === id);
+    // Database.quizzes[quizIndex] = {
+    //   ...Database.quizzes[quizIndex],
+    //   ...req.body,
+    // };
+    try {
+      await dao.updateQuiz(qid, req.body);
+      res.sendStatus(200);
+    } catch (error) {
+      res.sendStatus(400);
+    }
   });
 }
