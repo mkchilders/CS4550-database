@@ -17,7 +17,7 @@ const quizSchema = new mongoose.Schema(
     shuffleAnswers: Boolean,
     timeLimit: Number,
     multipleAttempts: Boolean,
-    showCorrectAnswers: String,
+    showCorrectAnswers: Boolean,
     accessCode: String,
     oneQuestionAtATime: Boolean,
     webcamRequired: Boolean,

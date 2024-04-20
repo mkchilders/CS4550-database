@@ -1,4 +1,3 @@
-// import Database from "../Database/index.js";
 import * as dao from "./dao.js";
 
 export default function QuizRoutes(app) {
@@ -34,12 +33,29 @@ export default function QuizRoutes(app) {
     const { cid } = req.params;
     const newQuiz = {
       ...req.body,
+      title: "New Quiz",
       course: cid,
-      id: new Date().getTime().toString(),
+      description: "Example quiz",
       isPublished: false,
-      questions: [],
+      quizType: "",
       points: 0,
-      title: "new Quiz",
+      for: "Everyone",
+      viewResponses: "Always",
+      requireRespondus: false,
+      requiredViewResults: false,
+      assignmentGroup: "Quizzes",
+      shuffleAnswers: false,
+      timeLimit: 20,
+      multipleAttempts: false,
+      showCorrectAnswers: false,
+      accessCode: "",
+      oneQuestionAtATime: false,
+      webcamRequired: false,
+      lockQuestionsAfterAnswering: false,
+      dueDate: "2024-04-01",
+      availableDate: "2024-04-19",
+      untilDate: "2024-05-01",
+      questions: [],
     };
     const quiz_added = await dao.createQuiz(newQuiz);
     res.send(quiz_added);
@@ -47,11 +63,6 @@ export default function QuizRoutes(app) {
 
   app.put("/api/quizzes/:qid", async (req, res) => {
     const { qid } = req.params;
-    // const quizIndex = Database.quizzes.findIndex((q) => q.id === id);
-    // Database.quizzes[quizIndex] = {
-    //   ...Database.quizzes[quizIndex],
-    //   ...req.body,
-    // };
     try {
       await dao.updateQuiz(qid, req.body);
       res.sendStatus(200);
