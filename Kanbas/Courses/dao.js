@@ -9,3 +9,4 @@ export const findCourseById = (courseId) => model.findById(courseId);
 export const updateCourse = (courseId, course) =>
   model.updateOne({ _id: courseId }, { $set: course });
 export const deleteCourse = (courseId) => model.deleteOne({ _id: courseId });
+export const findAllCoursesForUser = (userId) => model.find({ userId: userId });

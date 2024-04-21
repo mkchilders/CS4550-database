@@ -1,8 +1,14 @@
 import * as dao from "./dao.js";
 export default function CourseRoutes(app) {
   const createCourse = async (req, res) => {
-    const course = await dao.createCourse(req.body);
-    res.json(course);
+    const course = req.body;
+    console.log("course to add ", course);
+    try {
+      const newCourse = await dao.createCourse(course);
+      res.json(newCourse);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const deleteCourse = async (req, res) => {
     const status = await dao.deleteCourse(req.params.courseId);
@@ -28,10 +34,22 @@ export default function CourseRoutes(app) {
     res.json(status);
   };
 
+  const findAllcoursesForUser = async (req, res) => {
+    const userId = req.body.userId;
+    console.log("findAllCoursesForUser: ", userId);
+    try {
+      const courses = await dao.findAllCoursesForUser(userId);
+      res.json(courses);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   app.get("/api/courses/:courseId", findCourseByCid);
   app.get("/api/courses/:courseId/course", findCourseById);
   app.put("/api/courses/:courseId", updateCourse);
   app.delete("/api/courses/:courseId", deleteCourse);
   app.post("/api/courses", createCourse);
   app.get("/api/courses", findAllCourses);
+  app.post("/api/currentUser/courses", findAllcoursesForUser);
 }
