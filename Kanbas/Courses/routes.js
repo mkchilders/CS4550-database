@@ -2,7 +2,6 @@ import * as dao from "./dao.js";
 export default function CourseRoutes(app) {
   const createCourse = async (req, res) => {
     const course = req.body;
-    console.log("course to add ", course);
     try {
       const newCourse = await dao.createCourse(course);
       res.json(newCourse);
@@ -36,7 +35,6 @@ export default function CourseRoutes(app) {
 
   const findAllcoursesForUser = async (req, res) => {
     const userId = req.body.userId;
-    console.log("findAllCoursesForUser: ", userId);
     try {
       const courses = await dao.findAllCoursesForUser(userId);
       res.json(courses);

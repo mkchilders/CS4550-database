@@ -49,7 +49,7 @@ const quizSchema = new mongoose.Schema(
       },
     ],
   },
-  { collection: "quizzes" }
+  { collection: "quizzes", typeKey: "$type" }
 );
 
 export default quizSchema;
