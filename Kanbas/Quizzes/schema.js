@@ -7,13 +7,28 @@ const quizSchema = new mongoose.Schema(
     course: String,
     description: String,
     isPublished: Boolean,
-    quizType: String,
+    quizType: {
+      $type: String,
+      enum: [
+        "Graded Quiz",
+        "Practice Quiz",
+        "Graded Survey",
+        "Ungraded Survey",
+      ],
+      default: "Graded Quiz",
+    },
     points: Number,
     for: String,
     viewResponses: String,
     requireRespondus: Boolean,
     requiredViewResults: Boolean,
-    assignmentGroup: String,
+    assignmentGroup: {
+      $type: String,
+      enum: [
+        "Quizzes", "Exams", "Assignments", "Project",
+      ],
+      default: "Quizzes",
+    },
     shuffleAnswers: Boolean,
     timeLimit: Number,
     multipleAttempts: Boolean,
@@ -28,7 +43,11 @@ const quizSchema = new mongoose.Schema(
     questions: [
       {
         id: String,
-        type: String,
+        type: {
+          $type: String,
+          enum: ["Multiple Choice", "Fill in the Blank", "True/False"],
+          default: "Multiple Choice",
+        },
         title: String,
         points: Number,
         question: String,
